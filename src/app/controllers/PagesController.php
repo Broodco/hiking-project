@@ -2,10 +2,12 @@
 
 namespace App\Controllers;
 
+use App\Core\Helpers\Helpers;
+
 class PagesController
 {
     public function home(): void
     {
-        echo phpinfo();
+        Helpers::redirect('hikes');
     }
 }

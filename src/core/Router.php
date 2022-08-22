@@ -2,7 +2,8 @@
 
 namespace App\Core;
 
-use App\Controllers\{PagesController};
+use App\Exceptions\RouteNotFoundException;
+use App\Controllers\{PagesController, UsersController};
 
 
 class Router
@@ -40,7 +41,7 @@ class Router
             );
         }
 
-        throw new Exception('No route found.');
+        throw new RouteNotFoundException('No route found for uri = ' . $uri);
     }
 
     protected function callAction($controller, $action)
@@ -49,7 +50,7 @@ class Router
         $controller = new $controller;
 
         if (!method_exists($controller, $action)) {
-            throw new Exception("{$controller} does not contain the action {$action}.");
+            throw new RouteNotFoundException("{$controller} does not contain the action {$action}.");
         }
 
         return $controller->$action();

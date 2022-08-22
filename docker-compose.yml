@@ -1,15 +1,18 @@
 version: '3.1'
 services:
+    redis:
+        image: 'redis:alpine'
+        ports:
+            - "6379:6379"
     mysql:
         image: 'mysql:8.0'
+        restart: always
         working_dir: /application
-        volumes:
-            - './src:/application'
         environment:
-            - MYSQL_ROOT_PASSWORD='${DB_ROOT_PASSWORD}'
-            - MYSQL_DATABASE='${DB_DATABASE}'
-            - MYSQL_USER='${DB_USERNAME}'
-            - MYSQL_PASSWORD='${DB_PASSWORD}'
+            - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+            - MYSQL_DATABASE=${DB_DATABASE}
+            - MYSQL_USER=${DB_USERNAME}
+            - MYSQL_PASSWORD=${DB_PASSWORD}
         ports:
             - '3002:3306'
 

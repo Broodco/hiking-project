@@ -1,8 +1,8 @@
 <?php
 
-require_once 'helpers.php';
 
 use App\Core\App;
+use App\Core\Session;
 use App\Core\Database\{Connection, QueryBuilder};
 
 App::bind('database', new QueryBuilder(
@@ -16,3 +16,5 @@ App::bind('database', new QueryBuilder(
         ],
     ]))
 );
+
+App::bind('session', new Session());
