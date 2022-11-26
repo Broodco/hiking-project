@@ -52,3 +52,5 @@ require 'app/views/layout/head.view.php'
         </div>
     </div>
 </div>
+
+<?php require 'app/views/layout/footer.view.php' ?>

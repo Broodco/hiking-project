@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Controllers;
+use App\Core\App;
 use App\Exceptions\MissingParameterException;
-use App\Exceptions\ResourceNotFoundException;
 use App\Models\Hike;
 use App\Core\Helpers\Helpers;
 
@@ -11,7 +11,10 @@ class HikesController
 {
     public function index(): void
     {
-        Helpers::view('hikes/index', ['hikes' => Hike::all()]);
+        $data = App::get('session')->get('redirection_data') ?? [];
+        App::get('session')->remove('redirection_data');
+
+        Helpers::view('hikes/index', ['hikes' => Hike::all(), 'data' => $data]);
     }
 
     public function create(): void
@@ -37,7 +40,7 @@ class HikesController
         }
         Hike::create($parameters);
 
-        Helpers::redirect('hikes');
+        Helpers::redirect('hikes', 'GET');
     }
 
     public function show(): void

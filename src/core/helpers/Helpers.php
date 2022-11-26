@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Core\Helpers;
+use App\Core\Router;
+use App\Core\Session;
+use App\Core\App;
 
 class Helpers
 {
@@ -15,8 +18,12 @@ class Helpers
         return require "app/views/{$name}.view.php";
     }
 
-    public static function redirect(string $route) {
+    public static function redirect(string $route, string $method, $data = []) {
         http_response_code(302);
-        header("Location: /{$route}");
+        extract($data);
+        App::get('session')->set('redirection_data', $data);
+        Router::load('app/routes.php')
+            ->direct($route, $method);
+
     }
 }

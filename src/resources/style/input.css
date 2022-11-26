@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.notification-panel {
+    @apply transform ease-out duration-500 transition;
+    @apply translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2;
+
+}
+
+.notification-enter {
+     @apply translate-y-0 opacity-100 sm:translate-x-0;
+}
+
+.notification-leave {
+     @apply ease-in duration-100;
+     @apply opacity-0;
+}

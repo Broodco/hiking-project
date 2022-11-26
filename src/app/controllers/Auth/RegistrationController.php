@@ -2,6 +2,7 @@
 
 namespace App\Controllers\Auth;
 
+use App\Core\App;
 use App\Core\Helpers\Helpers;
 use App\Exceptions\MissingParameterException;
 use App\Models\User;
@@ -14,7 +15,10 @@ class RegistrationController
      */
     public function create(): void
     {
-        Helpers::view('auth/register');
+        $data = App::get('session')->get('redirection_data') ?? [];
+        App::get('session')->remove('redirection_data');
+
+        Helpers::view('auth/register', ['data' => $data]);
     }
 
     /**
@@ -41,8 +45,21 @@ class RegistrationController
 
         $parameters['password'] = password_hash($parameters['password'], PASSWORD_DEFAULT);
 
-        User::create($parameters);
-
-        Helpers::redirect('');
+        try {
+            User::create($parameters);
+            Helpers::redirect('login', 'POST', ['success' => 'Account created successfully.']);
+        } catch (\Exception $exception) {
+            if (str_contains($exception->getMessage(), 'Duplicate entry')) {
+                if (str_contains($exception->getMessage(), 'users_user_name')) {
+                    $errors[] = 'This username already exists.';
+                }
+                if (str_contains($exception->getMessage(), 'users_email')) {
+                    $errors[] = 'This email address already exists.';
+                }
+            } else {
+                $errors[] = 'Unknown error during registration.';
+            }
+            Helpers::redirect('register', 'GET', ['errors' => $errors]);
+        }
     }
 }

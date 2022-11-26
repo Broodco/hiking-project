@@ -9,12 +9,11 @@
                             <div class="hidden md:block">
                                 <div class="ml-10 flex items-baseline space-x-4">
                                     <?php /* @var string $pageName */ ?>
-                                    <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                                     <a href="/hikes" class="<?php echo $pageName === 'Hikes' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'; ?> px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Home</a>
 
                                     <a href="/hikes/create" class="<?php echo $pageName === 'Create a Hike' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'; ?> px-3 py-2 rounded-md text-sm font-medium">Create a hike</a>
 
-                                    <a href="#" class="<?php echo $pageName === 'My Hikes' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'; ?> px-3 py-2 rounded-md text-sm font-medium">My hikes</a>
+                                    <a disabled href="#" class="<?php echo $pageName === 'My Hikes' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'; ?> px-3 py-2 rounded-md text-sm font-medium">My hikes</a>
 
                                     <a href="#" class="<?php echo $pageName === 'Users' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'; ?> px-3 py-2 rounded-md text-sm font-medium">Users</a>
                                 </div>
@@ -22,33 +21,24 @@
                         </div>
                         <div class="hidden md:block">
                             <div class="ml-4 flex items-center md:ml-6">
-                                <span class="text-white mx-6">Hello <?= $_SESSION['user_name'] ?? 'inconnu' ?></span>
+                                <span class="text-white mx-6">Hello <?= $_SESSION['user_name'] ?? 'Stranger' ?></span>
                                 <!-- Profile dropdown -->
                                 <div class="ml-3 relative">
                                     <div>
-                                        <button type="button" class="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
-                                            <span class="sr-only">Open user menu</span>
-                                            <img class="h-8 w-8 rounded-full" src="/images/avatar.svg" alt="">
+                                        <button id="user-menu" type="button" class="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                                            <span  class="sr-only">Open user menu</span>
+                                            <img id="user-menu-image" type class="h-8 w-8 rounded-full" src="/images/avatar.svg" alt="">
                                         </button>
                                     </div>
-
-                                    <!--
-                                      Dropdown menu, show/hide based on menu state.
-
-                                      Entering: ""
-                                        From: "transform opacity-0 scale-95"
-                                        To: "transform opacity-100 scale-100"
-                                      Leaving: "transition ease-in duration-75"
-                                        From: "transform opacity-100 scale-100"
-                                        To: "transform opacity-0 scale-95"
-                                    -->
-                                    <div class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                                    <div id="user-dropdown" class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                                         <!-- Active: "bg-gray-100", Not Active: "" -->
                                         <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
 
                                         <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
 
-                                        <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
+                                        <form action="/logout" method="post">
+                                            <button type="submit" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -115,7 +105,9 @@
 
                         <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Settings</a>
 
-                        <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Sign out</a>
+                        <form action="/logout">
+                            <button type="submit" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Sign out</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -126,7 +118,7 @@
             </div>
         </header>
     </div>
-
+    <script type="text/javascript" src="/scripts/navbar.js" defer></script>
     <main class="-mt-32">
         <div class="max-w-7xl mx-auto pb-12 px-4 sm:px-6 lg:px-8">
             <!-- Replace with your content -->

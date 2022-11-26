@@ -10,7 +10,7 @@
     <title>Hiking Project</title>
 </head>
 <body class="h-full">
-    <div class="min-h-full">
+    <div class="min-h-full flex flex-col">
         <div class="bg-gray-800 pb-32">
             <nav class="bg-gray-800">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
