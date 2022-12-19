@@ -2,6 +2,7 @@
 
 namespace App\Controllers\Auth;
 
+use App\Actions\LogIn;
 use App\Core\App;
 use App\Core\Helpers\Helpers;
 use App\Exceptions\MissingParameterException;
@@ -47,6 +48,8 @@ class RegistrationController
 
         try {
             User::create($parameters);
+            $user = User::findByParameter(['email' => $parameters['email']]);
+            LogIn::login($user->id, $user->user_name);
             Helpers::redirect('login', 'POST', ['success' => 'Account created successfully.']);
         } catch (\Exception $exception) {
             if (str_contains($exception->getMessage(), 'Duplicate entry')) {

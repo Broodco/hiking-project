@@ -4,10 +4,13 @@ services:
         image: 'redis:alpine'
         ports:
             - "6379:6379"
+
     mysql:
         image: 'mysql:8.0'
-        restart: always
         working_dir: /application
+        volumes:
+            - './dbdata:/var/lib/mysql'
+            - './mysql_scripts/db_creation.sql:/docker-entrypoint-initdb.d/1.sql'
         environment:
             - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
             - MYSQL_DATABASE=${DB_DATABASE}

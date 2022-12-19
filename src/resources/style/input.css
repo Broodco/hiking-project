@@ -5,7 +5,6 @@
 .notification-panel {
     @apply transform ease-out duration-500 transition;
     @apply translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2;
-
 }
 
 .notification-enter {

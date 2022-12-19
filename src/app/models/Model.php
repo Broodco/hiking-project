@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Core\App;
 use App\Core\Database\QueryBuilder;
-use App\Core\Helpers\Helpers;
 use App\Exceptions\ResourceNotFoundException;
 
 abstract class Model
@@ -16,6 +15,11 @@ abstract class Model
     protected static function newQuery(): QueryBuilder
     {
         return App::get('database');
+    }
+
+    public static function customQuery(string $sql, array $params): array
+    {
+        return static::newQuery()->executeQuery($sql, $params)->fetchAll(\PDO::FETCH_OBJ);
     }
 
     public static function all(): array

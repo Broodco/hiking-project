@@ -13,4 +13,34 @@ class Hike extends Model
         'elevation_gain',
         'description'
     ];
+
+    public static function hikes_with_tags_ids(): array
+    {
+        $hikes = static::customQuery(
+            "SELECT DISTINCT h.*, group_concat(t.id) as tags_ids
+            FROM hikes h
+            JOIN hikes_tags ht ON h.id = ht.hikes_id
+            JOIN tags t ON ht.tags_id = t.id
+            GROUP BY h.id;
+            ", []
+        );
+
+        foreach ($hikes as $hike) {
+            $hike->tags_ids = explode(',', $hike->tags_ids);
+        }
+
+        return $hikes;
+    }
+
+    public static function hikes_filtered_by_tags(array $tag_ids): array
+    {
+        $tags = implode(", ", $tag_ids);
+        return static::customQuery(
+            "SELECT DISTINCT h.*
+            FROM hikes h
+            JOIN hikes_tags ht ON h.id = ht.hikes_id
+            WHERE ht.tags_id IN ({$tags});
+            ", []
+        );
+    }
 }

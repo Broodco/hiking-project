@@ -5,6 +5,7 @@ use App\Core\App;
 use App\Exceptions\MissingParameterException;
 use App\Models\Hike;
 use App\Core\Helpers\Helpers;
+use App\Models\Tag;
 
 
 class HikesController
@@ -14,7 +15,14 @@ class HikesController
         $data = App::get('session')->get('redirection_data') ?? [];
         App::get('session')->remove('redirection_data');
 
-        Helpers::view('hikes/index', ['hikes' => Hike::all(), 'data' => $data]);
+        Helpers::view(
+            'hikes/index',
+            [
+                'hikes' => Hike::hikes_with_tags_ids(),
+                'tags' => Tag::tagsWithIdKeys(),
+                'data' => $data
+            ]
+        );
     }
 
     public function create(): void
@@ -48,10 +56,10 @@ class HikesController
         if (empty($_GET['id'])) {
             throw new \Exception('Missing required `id` parameter in uri');
         }
-
         $hike = Hike::findById($_GET['id']);
+        $tags = Tag::tagsByHike($_GET['id']);
 
-        Helpers::view('hikes/show', ['hike' => $hike]);
+        Helpers::view('hikes/show', ['hike' => $hike, 'tags' => $tags]);
     }
 
     public function edit(): void
