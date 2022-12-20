@@ -8,8 +8,13 @@
     <link href="/style/output.css" rel="stylesheet">
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link rel="icon" type="image/x-icon" href="/images/logo_compass.svg">
-    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <title>Hiking Project</title>
+    <style>
+        [x-cloak] {
+            display: none !important;
+        }
+    </style>
 </head>
 <body class="h-full">
     <div class="min-h-full flex flex-col">

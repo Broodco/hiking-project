@@ -23,14 +23,14 @@
                             <div class="ml-4 flex items-center md:ml-6">
                                 <span class="text-white mx-6">Hello <?= $_SESSION['user_name'] ?? 'Stranger' ?></span>
                                 <!-- Profile dropdown -->
-                                <div class="ml-3 relative" x-data="{ menu_open: false }">
+                                <div class="ml-3 relative">
                                     <div>
                                         <button @click="menu_open = ! menu_open" type="button" class="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-gray-800 focus:ring-white" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                                             <span  class="sr-only">Open user menu</span>
                                             <img id="user-menu-image" type class="h-8 w-8 rounded-full" src="/images/avatar.svg" alt="">
                                         </button>
                                     </div>
-                                    <div x-show="menu_open" @click.outside="menu_open = false" id="user-dropdown" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                                    <div x-cloak x-show="menu_open" @click.outside="menu_open = false" id="user-dropdown" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                                         <?php if (!empty($_SESSION['user_name'])) : ?>
                                         <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
 

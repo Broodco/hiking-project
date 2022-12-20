@@ -50,7 +50,7 @@ class RegistrationController
             User::create($parameters);
             $user = User::findByParameter(['email' => $parameters['email']]);
             LogIn::login($user->id, $user->user_name);
-            Helpers::redirect('', ['success' => 'Account created successfully.']);
+            Helpers::redirect('hikes', ['success' => 'Account created successfully.']);
         } catch (\Exception $exception) {
             if (str_contains($exception->getMessage(), 'Duplicate entry')) {
                 if (str_contains($exception->getMessage(), 'users_user_name')) {

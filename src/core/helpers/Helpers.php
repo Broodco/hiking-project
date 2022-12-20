@@ -23,6 +23,6 @@ class Helpers
         http_response_code(302);
         extract($data);
         App::get('session')->set('redirection_data', $data);
-        header("Location: {$route}");
+        header("Location: $route");
     }
 }
