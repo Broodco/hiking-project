@@ -15,4 +15,19 @@ class TagsController
     {
         return Tag::tagsByHike($hike_id);
     }
+
+    public function createTagsIfNotExists(array $tags): void
+    {
+        //TODO
+    }
+
+    public function createTags(): void
+    {
+        //TODO
+    }
+
+    public function addTagToHike(): void
+    {
+        //TODO
+    }
 }

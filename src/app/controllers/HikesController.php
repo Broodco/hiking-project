@@ -27,7 +27,8 @@ class HikesController
 
     public function create(): void
     {
-        Helpers::view('hikes/create');
+        $tags = Tag::all();
+        Helpers::view('hikes/create', ['tags' => $tags ]);
     }
 
     public function store(): void
@@ -47,6 +48,11 @@ class HikesController
             $parameters[$property] = $_POST[$property];
         }
         Hike::create($parameters);
+
+        if (empty($_POST['tags'])) {
+            $tagController = new TagsController();
+            $tagController->createTagsIfNotExists($_POST['tags']);
+        }
 
         Helpers::redirect('hikes');
     }
