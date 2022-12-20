@@ -8,6 +8,6 @@ class PagesController
 {
     public function home(): void
     {
-        Helpers::redirect('hikes', 'GET');
+        Helpers::redirect('hikes');
     }
 }

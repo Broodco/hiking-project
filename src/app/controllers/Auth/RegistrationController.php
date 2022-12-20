@@ -50,7 +50,7 @@ class RegistrationController
             User::create($parameters);
             $user = User::findByParameter(['email' => $parameters['email']]);
             LogIn::login($user->id, $user->user_name);
-            Helpers::redirect('login', 'POST', ['success' => 'Account created successfully.']);
+            Helpers::redirect('', ['success' => 'Account created successfully.']);
         } catch (\Exception $exception) {
             if (str_contains($exception->getMessage(), 'Duplicate entry')) {
                 if (str_contains($exception->getMessage(), 'users_user_name')) {
@@ -62,7 +62,7 @@ class RegistrationController
             } else {
                 $errors[] = 'Unknown error during registration.';
             }
-            Helpers::redirect('register', 'GET', ['errors' => $errors]);
+            Helpers::redirect('register', ['errors' => $errors]);
         }
     }
 }

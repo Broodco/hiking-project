@@ -18,12 +18,11 @@ class Helpers
         return require "app/views/{$name}.view.php";
     }
 
-    public static function redirect(string $route, string $method, $data = [])
+    public static function redirect(string $route, $data = [])
     {
         http_response_code(302);
         extract($data);
         App::get('session')->set('redirection_data', $data);
-        Router::load('app/routes.php')
-            ->direct($route, $method);
+        header("Location: {$route}");
     }
 }

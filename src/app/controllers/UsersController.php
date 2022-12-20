@@ -39,7 +39,7 @@ class UsersController
 
         User::create($parameters);
 
-        Helpers::redirect('users', 'GET');
+        Helpers::redirect('users');
     }
 
     public function show(): void

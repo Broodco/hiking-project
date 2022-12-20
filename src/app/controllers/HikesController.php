@@ -48,7 +48,7 @@ class HikesController
         }
         Hike::create($parameters);
 
-        Helpers::redirect('hikes', 'GET');
+        Helpers::redirect('hikes');
     }
 
     public function show(): void
