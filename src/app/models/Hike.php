@@ -17,11 +17,11 @@ class Hike extends Model
     public static function hikes_with_tags_ids(): array
     {
         $hikes = static::customQuery(
-            "SELECT DISTINCT h.*, group_concat(t.id) as tags_ids
-            FROM hikes h
-            JOIN hikes_tags ht ON h.id = ht.hikes_id
-            JOIN tags t ON ht.tags_id = t.id
-            GROUP BY h.id;
+            "SELECT h.*, group_concat(t.id) as tags_ids
+                FROM hikes h
+                LEFT JOIN hikes_tags ht ON h.id = ht.hikes_id
+                LEFT JOIN tags t ON ht.tags_id = t.id
+                GROUP BY h.id;
             ", []
         );
 

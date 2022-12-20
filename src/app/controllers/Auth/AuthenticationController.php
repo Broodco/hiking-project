@@ -14,6 +14,11 @@ class AuthenticationController
      */
     public function create()
     {
+        $session = App::get('session');
+        if ($session->get('LOGGED_IN')) {
+            Helpers::redirect('hikes', 'GET', ['errors' => ['Already logged in.']]);
+        }
+
         $data = App::get('session')->get('redirection_data') ?? [];
         App::get('session')->remove('redirection_data');
         Helpers::view('auth/login', ['data' => $data]);

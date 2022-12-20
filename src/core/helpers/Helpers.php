@@ -25,6 +25,5 @@ class Helpers
         App::get('session')->set('redirection_data', $data);
         Router::load('app/routes.php')
             ->direct($route, $method);
-
     }
 }
