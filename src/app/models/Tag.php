@@ -7,7 +7,8 @@ class Tag extends Model
     protected static string $table = 'tags';
 
     public static array $fillable = [
-        'name'
+        'name',
+        'color'
     ];
 
     public static function tagsByHike(int $hike_id): array

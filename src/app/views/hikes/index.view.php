@@ -17,12 +17,14 @@
                             <dd class="text-gray-500 text-sm whitespace-pre-line truncate h-11"><?= $hike->description ?></dd>
                             <dt class="sr-only">Role</dt>
                             <dd class="mt-3">
-                                <?php foreach ($hike->tags_ids as $tag_id) : ?>
-                                    <span
-                                        class="px-2 py-1 text-green-800 text-xs font-medium rounded-full"
-                                        style="background: #<?= $tags[$tag_id]->color ?>"
-                                    ><?= $tags[$tag_id]->name ?></span>
-                                <?php endforeach; ?>
+                                <?php if (!empty($hike->tags_ids)): ?>
+                                    <?php foreach ($hike->tags_ids as $tag_id) : ?>
+                                        <span
+                                            class="px-2 py-1 text-green-800 text-xs font-medium rounded-full"
+                                            style="background: #<?= $tags[$tag_id]->color ?>"
+                                        ><?= $tags[$tag_id]->name ?></span>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
                             </dd>
                         </dl>
                     </div>

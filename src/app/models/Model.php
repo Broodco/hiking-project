@@ -66,4 +66,9 @@ abstract class Model
     {
         static::newQuery()->destroy(static::$table, ['id' => $id]);
     }
+
+    public static function getLastInsertId(): string
+    {
+        return static::newQuery()->lastInsertId();
+    }
 }

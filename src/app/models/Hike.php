@@ -26,7 +26,9 @@ class Hike extends Model
         );
 
         foreach ($hikes as $hike) {
-            $hike->tags_ids = explode(',', $hike->tags_ids);
+            if (!empty($hike->tags_ids)) {
+                $hike->tags_ids = explode(',', $hike->tags_ids);
+            }
         }
 
         return $hikes;

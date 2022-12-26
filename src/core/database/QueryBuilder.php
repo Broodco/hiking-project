@@ -155,4 +155,9 @@ class QueryBuilder
 
         $this->executeQuery($sql, $conditions);
     }
+
+    public function lastInsertId(): string
+    {
+        return $this->pdo->lastInsertId();
+    }
 }

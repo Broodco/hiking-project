@@ -28,7 +28,9 @@ class HikesController
     public function create(): void
     {
         $tags = Tag::all();
-        Helpers::view('hikes/create', ['tags' => $tags ]);
+        $availableColors = App::get('colors');
+
+        Helpers::view('hikes/create', ['tags' => $tags, 'colors' => $availableColors ]);
     }
 
     public function store(): void
@@ -43,22 +45,23 @@ class HikesController
         ];
 
         foreach ($parameters as $property => $value) {
-            if (empty($_POST[$property])) {
+            if (empty($_POST[$property]) && $_POST[$property] !== '0') {
                 throw new MissingParameterException('Missing parameter : ' . $property);
             }
             $parameters[$property] = $_POST[$property];
         }
 
-        $parameters['duration'] = $parameters['duration_hours'] * 60 + $parameters['duration_minutes'];
+        $parameters['duration'] = (string) ((int)$parameters['duration_hours'] * 60 + (int)$parameters['duration_minutes']);
 
         unset($parameters['duration_hours']);
         unset($parameters['duration_minutes']);
 
         Hike::create($parameters);
+        $hikeId = Hike::getLastInsertId();
 
         if (!empty($_POST['tags'])) {
             $tagController = new TagsController();
-            $tagController->createTagsIfNotExists($_POST['tags']);
+            $tagController->createTagsIfNotExists($hikeId, $_POST['tags']);
         }
 
         Helpers::redirect('hikes');
