@@ -54,19 +54,9 @@
                                     @click.outside="menu_open = false"
                                     class="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
                                 <span class="sr-only">Open main menu</span>
-                                <!--
-                                  Heroicon name: outline/menu
-
-                                  Menu open: "hidden", Menu closed: "block"
-                                -->
                                 <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
                                 </svg>
-                                <!--
-                                  Heroicon name: outline/x
-
-                                  Menu open: "block", Menu closed: "hidden"
-                                -->
                                 <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                                 </svg>
@@ -80,39 +70,37 @@
             <div x-show="menu_open" @click.outside="menu_open = false" class="border-b border-gray-700 md:hidden" id="mobile-menu">
                 <div class="px-2 py-3 space-y-1 sm:px-3">
                     <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                    <a href="#" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page">Dashboard</a>
+                    <a href="/hikes" class="<?php echo $pageName === 'Hikes' ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium' : 'bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'; ?> px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Home</a>
 
-                    <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Team</a>
+                    <?php if (!empty($_SESSION['user_name'])) : ?>
+                        <a href="/hikes/create" class="<?php echo $pageName === 'Create a Hike' ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium' : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'; ?> px-3 py-2 rounded-md text-sm font-medium">Create a hike</a>
+                        <a href="#" class="<?php echo $pageName === 'My Hikes' ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium' : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'; ?> px-3 py-2 rounded-md text-sm font-medium">My hikes</a>
+                    <?php endif; ?>
 
-                    <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Projects</a>
-
-                    <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Calendar</a>
-
-                    <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Reports</a>
+                    <a href="#" class="<?php echo $pageName === 'Users' ? 'bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium' : 'text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'; ?> px-3 py-2 rounded-md text-sm font-medium">Users</a>
                 </div>
                 <div class="pt-4 pb-3 border-t border-gray-700">
-                    <div class="flex items-center px-5">
-                        <?php if (!empty($_SESSION['user_name'])) : ?>
-                            <div class="flex-shrink-0">
-                            <img class="h-10 w-10 rounded-full" src="/images/avatar.svg" alt="">
+                    <?php if (!empty($_SESSION['user_name'])) : ?>
+                        <div class="flex items-center px-5">
+                                <div class="flex-shrink-0">
+                                <img class="h-10 w-10 rounded-full" src="/images/avatar.svg" alt="">
+                            </div>
+                            <div class="ml-3">
+                                <div class="text-base font-medium leading-none text-white"><?= $_SESSION['user_name'] ?></div>
+                            </div>
                         </div>
-                        <div class="ml-3">
-                            <div class="text-base font-medium leading-none text-white">Tom Cook</div>
-                            <div class="text-sm font-medium leading-none text-gray-400">tom@example.com</div>
-                        </div>
-                        <?php endif ?>
-                    </div>
-                    <div class="mt-3 px-2 space-y-1">
+                    <?php endif ?>
+                    <div class="px-2 space-y-1">
                         <?php if (!empty($_SESSION['user_name'])) : ?>
-                            <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Your Profile</a>
+                            <a href="#" class="block mt-3 px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Your Profile</a>
 
                             <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Settings</a>
 
-                            <form action="/logout">
-                                <button type="submit" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Sign out</button>
+                            <form action="/logout" method="post">
+                                <button type="submit" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Sign out</button>
                             </form>
                         <?php else : ?>
-                            <div class="flex justify-around">
+                            <div class="flex justify-around flex-col">
                                 <a href="/login" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Login</a>
 
                                 <a href="/register" class="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">Register</a>

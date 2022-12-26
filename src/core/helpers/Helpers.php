@@ -25,4 +25,37 @@ class Helpers
         App::get('session')->set('redirection_data', $data);
         header("Location: $route");
     }
+
+    public static function minutesToTime($inputMinutes): string
+    {
+        $minutesInAnHour = 60;
+        $minutesInADay = 24 * $minutesInAnHour;
+
+        // Extract days
+        $days = floor($inputMinutes / $minutesInADay);
+
+        // Extract hours
+        $hourMinutes = $inputMinutes % $minutesInADay;
+        $hours = floor($hourMinutes / $minutesInAnHour);
+
+        // Extract the remaining minutes
+        $remainingMinutes = $hourMinutes % $minutesInAnHour;
+        $minutes = ceil($remainingMinutes);
+
+        // Format and return
+        $timeParts = [];
+        $sections = [
+            'day' => (int)$days,
+            'hour' => (int)$hours,
+            'minute' => (int)$minutes,
+        ];
+
+        foreach ($sections as $name => $value){
+            if ($value > 0){
+                $timeParts[] = $value. ' '.$name.($value == 1 ? '' : 's');
+            }
+        }
+
+        return implode(', ', $timeParts);
+    }
 }

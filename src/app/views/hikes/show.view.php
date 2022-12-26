@@ -16,15 +16,15 @@
             </div>
             <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm font-medium text-gray-500">Distance</dt>
-                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><?= number_format($hike->distance, 1, ',') ?> km</dd>
+                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><?= number_format($hike->distance, 1, ',', ' ') ?> km</dd>
             </div>
             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm font-medium text-gray-500">Duration</dt>
-                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><?= number_format($hike->duration / 60, 0) . ' hours ' . number_format($hike->duration % 60, 0)?> minutes</dd>
+                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><?= $hike->formatted_duration ?></dd>
             </div>
             <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm font-medium text-gray-500">Elevation gain</dt>
-                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><?= number_format($hike->elevation_gain, 1, ',') ?> m</dd>
+                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><?= number_format($hike->elevation_gain, 1, ',', ' ') ?> m</dd>
             </div>
             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt class="text-sm font-medium text-gray-500">Description</dt>

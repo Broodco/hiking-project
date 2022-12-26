@@ -36,7 +36,8 @@ class HikesController
         $parameters = [
             'name' => '',
             'distance' => '',
-            'duration' => '',
+            'duration_hours' => '',
+            'duration_minutes' => '',
             'elevation_gain' => '',
             'description' => '',
         ];
@@ -47,9 +48,15 @@ class HikesController
             }
             $parameters[$property] = $_POST[$property];
         }
+
+        $parameters['duration'] = $parameters['duration_hours'] * 60 + $parameters['duration_minutes'];
+
+        unset($parameters['duration_hours']);
+        unset($parameters['duration_minutes']);
+
         Hike::create($parameters);
 
-        if (empty($_POST['tags'])) {
+        if (!empty($_POST['tags'])) {
             $tagController = new TagsController();
             $tagController->createTagsIfNotExists($_POST['tags']);
         }
@@ -64,6 +71,8 @@ class HikesController
         }
         $hike = Hike::findById($_GET['id']);
         $tags = Tag::tagsByHike($_GET['id']);
+
+        $hike->formatted_duration = Helpers::minutesToTime($hike->duration);
 
         Helpers::view('hikes/show', ['hike' => $hike, 'tags' => $tags]);
     }
