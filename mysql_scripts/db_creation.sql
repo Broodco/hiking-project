@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS `hamilton-7-hiking-broodco`;
-USE `hamilton-7-hiking-broodco`;
+CREATE DATABASE IF NOT EXISTS `hiking-project`;
+USE `hiking-project`;
 
 DROP TABLE IF EXISTS `tags`;
 CREATE TABLE tags
